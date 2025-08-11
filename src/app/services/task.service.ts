@@ -13,9 +13,9 @@ export class TaskService {
     this.loadTasks();
   }
   private loadTasks(): void {
-    const tasksJson =localStorage.getItem(this.a);
-    if (tasksJson){
-    const tasksFromStorage: Task[] = JSON.parse(tasksJson);
+    const tasksjson =localStorage.getItem(this.a);
+    if (tasksjson){
+    const tasksFromStorage: Task[] = JSON.parse(tasksjson);
       const loadedTasks: Task[] = [];
       for (let i = 0; i < tasksFromStorage.length; i++) {
         const task =tasksFromStorage[i];
