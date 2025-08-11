@@ -1,0 +1,49 @@
+<div class="task-list-container">
+<div class="header">
+  <h2>Task List</h2>
+  <button class="add-btn" routerLink="/tasks/new">+ Add Task</button>
+</div>
+
+@if (tasks.length === 0) {
+  <p class="no-tasks">No tasks available here..... Create a new task.</p>
+} @else {
+  <div class="filters">
+    <select [(ngModel)]="statusFilter" (change)="applyFilters()">
+      <option value="all">Overall Status</option>
+      <option value="Have To Do">Have To Do</option>
+      <option value="In Progress">In Progress</option>
+      <option value="Completed">Completed</option>
+    </select>
+  </div>
+
+  <table class="task-table">
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Description</th>
+        <th>Due date</th>
+        <th>Status</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (task of filteredTasks; track task.id) {
+        <tr>
+          <td>{{ task.title }}</td>
+          <td>{{ task.description }}</td>
+          <td>{{ task.duedate | date : 'mediumDate' }}</td>
+          <td>
+            <span class="status" [ngClass]="'status-' + task.status.replace(' ', '-').toLowerCase()">
+              {{ task.status }}
+            </span>
+          </td>
+          <td class="actions">
+            <button class="edit-btn" [routerLink]="['/tasks/edit', task.id]">Edit</button>
+            <button class="delete-btn" (click)="deleteTask(task.id)">Delete</button>
+          </td>
+        </tr>
+      }
+    </tbody>
+  </table>
+}
+</div>
